@@ -1,5 +1,5 @@
 get:
-  operationId: "getValidatorRegistration"
+  operationId: "validators_get_registration"
   summary: Check that a validator is registered with the relay.
   description: |
     * Returns the latest validator registration for a given pubkey.
