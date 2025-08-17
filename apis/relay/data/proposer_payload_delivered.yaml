@@ -68,10 +68,9 @@ get:
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../../relay-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 400
-                  message: "invalid block_hash argument"
+            $ref: "../../../relay-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "invalid block_hash argument"
     "500":
       $ref: "../../../relay-oapi.yaml#/components/responses/InternalError"

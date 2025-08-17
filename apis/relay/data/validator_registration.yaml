@@ -26,10 +26,9 @@ get:
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../../relay-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 400
-                  message: "missing pubkey argument"
+            $ref: "../../../relay-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "missing pubkey argument"
     "500":
       $ref: "../../../relay-oapi.yaml#/components/responses/InternalError"
