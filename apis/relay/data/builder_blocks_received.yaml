@@ -50,10 +50,9 @@ get:
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../../relay-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 400
-                  message: "cannot specify both slot and cursor"
+            $ref: "../../../relay-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "cannot specify both slot and cursor"
     "500":
       $ref: "../../../relay-oapi.yaml#/components/responses/InternalError"
