@@ -1,0 +1,3 @@
+# -*- mode: gitattributes; -*-
+
+dist/** linguist-vendored

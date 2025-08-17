@@ -1,5 +1,5 @@
 post:
-  operationId: "submitBlock"
+  operationId: "blocks_submit"
   summary: Submit a new block to the relay.
   description: |
     * Blocks can be submitted as JSON or SSZ, and optionally GZIP encoded. To be

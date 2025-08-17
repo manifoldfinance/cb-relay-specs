@@ -1,5 +1,5 @@
 get:
-  operationId: "getDeliveredPayloads"
+  operationId: "payloads_list_delivered"
   summary: Get payloads that were delivered to proposers.
   description: |
     * Payloads become available after the relay responds to a `getPayload` request from the proposer.

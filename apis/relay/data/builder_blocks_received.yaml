@@ -1,5 +1,5 @@
 get:
-  operationId: "getReceivedBids"
+  operationId: "blocks_list_received"
   summary: Get builder bid submissions.
   description: |
     * Returns a list of builder bids without execution payloads.

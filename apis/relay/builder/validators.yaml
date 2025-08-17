@@ -1,5 +1,5 @@
 get:
-  operationId: "getValidators"
+  operationId: "validators_list"
   summary: |
     Get a list of validator registrations for validators scheduled to propose
     in the current and next epoch.
