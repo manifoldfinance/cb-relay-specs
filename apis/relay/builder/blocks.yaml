@@ -1,5 +1,5 @@
 post:
-  operationId: "submitBlock"
+  operationId: "blocks_submit"
   summary: Submit a new block to the relay.
   description: |
     * Blocks can be submitted as JSON or SSZ, and optionally GZIP encoded. To be
@@ -61,10 +61,9 @@ post:
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../../relay-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 400
-                  message: "payload for this slot was already delivered"
+            $ref: "../../../relay-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "payload for this slot was already delivered"
     "500":
       $ref: "../../../relay-oapi.yaml#/components/responses/InternalError"

@@ -38,6 +38,13 @@ paths:
     $ref: "./apis/relay/data/validator_registration.yaml"
 
 components:
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Optional API key for authenticated requests
+
   schemas:
     Uint64:
       $ref: "./beacon-apis/types/primitive.yaml#/Uint64"
@@ -63,10 +70,92 @@ components:
       $ref: "./types/responses.yaml#/DeliveredPayloadsResponse"
     ReceivedBlocksResponse:
       $ref: "./types/responses.yaml#/ReceivedBlocksResponse"
+    PageInfo:
+      type: object
+      properties:
+        next_cursor:
+          type: string
+          description: "Cursor for next page of results"
+        has_more:
+          type: boolean
+          description: "Whether more results exist beyond this page"
+    ValidatorsPage:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/ValidatorsResponse"
+        page_info:
+          $ref: "#/components/schemas/PageInfo"
+    DeliveredPayloadsPage:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/DeliveredPayloadsResponse"
+        page_info:
+          $ref: "#/components/schemas/PageInfo"
+    ReceivedBlocksPage:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/ReceivedBlocksResponse"
+        page_info:
+          $ref: "#/components/schemas/PageInfo"
+    $shared.BidTrace:
+      $ref: "./types/bids.yaml#/BidTraceV2"
+    $shared.BidTraceWithTimestamp:
+      $ref: "./types/bids.yaml#/BidTraceV2WithTimestamp"
+    $shared.ValidatorRegistration:
+      $ref: "./beacon-apis/types/registration.yaml#/SignedValidatorRegistration"
+    $shared.Signature:
+      $ref: "./beacon-apis/types/primitive.yaml#/Signature"
+    $shared.Pubkey:
+      $ref: "./beacon-apis/types/primitive.yaml#/Pubkey"
+    $shared.Uint64:
+      $ref: "./beacon-apis/types/primitive.yaml#/Uint64"
+    $shared.Root:
+      $ref: "./beacon-apis/types/primitive.yaml#/Root"
+    ValidationError:
+      allOf:
+        - $ref: "#/components/schemas/ErrorMessage"
+        - type: object
+          properties:
+            field_errors:
+              type: array
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                    description: "Field name that caused the error"
+                  message:
+                    type: string
+                    description: "Error message for this field"
+              description: "List of field-specific validation errors"
+    AuthenticationError:
+      allOf:
+        - $ref: "#/components/schemas/ErrorMessage"
+        - type: object
+          properties:
+            error_type:
+              type: string
+              enum: ["missing_api_key", "invalid_api_key", "expired_api_key"]
+              description: "Type of authentication error"
 
   responses:
     InternalError:
       $ref: "./types/http.yaml#/InternalError"
+    ValidationError:
+      description: "Validation error response"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ValidationError"
+    AuthenticationError:
+      description: "Authentication error response"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AuthenticationError"
 
   examples:
     Bellatrix.SubmitBlockRequest:
